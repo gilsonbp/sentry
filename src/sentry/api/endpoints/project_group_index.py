@@ -138,6 +138,9 @@ class ProjectGroupIndexEndpoint(ProjectEndpoint):
             except ValueError:
                 raise ValidationError('invalid limit')
 
+            if query_kwargs['limit'] > 100:
+                raise ValidationError('max limit is 100')
+
         # TODO: proper pagination support
         cursor = request.GET.get('cursor')
         if cursor:
